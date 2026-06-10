@@ -64,7 +64,7 @@ export default function LoginScreen({ onLogin, onSignup }: LoginScreenProps) {
         </div>
 
         {/* Form Title */}
-        <div className="space-y-1">
+        <div className="space-y-2">
           <h2 className="text-base font-bold text-zinc-150 tracking-tight flex items-center gap-1.5">
             <span>{isRegistering ? "Iniciar Novo Registro" : "Acessar Plataforma"}</span>
             <Sparkles className="w-3.5 h-3.5 text-amber-500" />
@@ -74,6 +74,10 @@ export default function LoginScreen({ onLogin, onSignup }: LoginScreenProps) {
               ? "Crie sua conta para simular geração de posts e controle de robôs." 
               : "Faça login com seu e-mail administrativo do Open Studio."}
           </p>
+          <div className="flex items-center gap-1.5 text-[9px] text-zinc-400 font-mono py-1.5 px-2.5 rounded-lg bg-[#1c1e26] border border-zinc-800/40 w-fit select-none shrink-0">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Autenticação Sincronizada Supabase API</span>
+          </div>
         </div>
 
         {/* Error Notice */}

@@ -23,6 +23,8 @@ import {
 } from "lucide-react";
 import { AppState, Post } from "../types";
 import SocialPostPreview from "./SocialPostPreview";
+import { useSocialStore } from "../store/socialStore";
+import { socialAPI } from "../lib/api";
 
 interface ChannelTestViewProps {
   state: AppState;
@@ -42,8 +44,19 @@ const TiktokIcon = ({ className }: { className?: string }) => (
 );
 
 export default function ChannelTestView({ state, onAddPost, onUpdatePostStatus, onRefreshState }: ChannelTestViewProps) {
-  // We discover all available connected channels
-  const activeLogins = state.socialLogins || [];
+  const { socialConnections } = useSocialStore();
+  
+  // Discover both server-side and client-side Zustand connections for maximum synchronicity
+  const activeLogins = [...(state.socialLogins || [])];
+  socialConnections.forEach((sc) => {
+    if (!activeLogins.some((al) => al.channel.toLowerCase() === sc.channel.toLowerCase())) {
+      activeLogins.push({
+        channel: sc.channel,
+        username: sc.username || "conectado_api",
+        connectedAt: sc.connectedAt || new Date().toLocaleDateString("pt-BR")
+      });
+    }
+  });
   
   const [selectedChannel, setSelectedChannel] = useState<string>(() => {
     return activeLogins.length > 0 ? activeLogins[0].channel : "LinkedIn";
@@ -57,22 +70,20 @@ export default function ChannelTestView({ state, onAddPost, onUpdatePostStatus, 
     setIsTestingConnection(true);
     setTestFeedback(null);
     try {
-      const res = await fetch(`/api/channels/${selectedChannel}/test`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ channel: selectedChannel }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || "Houve uma instabilidade na chamada à API.");
+      const message = `Olá, Open Studio! 🚀 Este é um post de teste para verificar a integração da plataforma no canal ${selectedChannel}.`;
+      const result = await socialAPI.dispatch([selectedChannel], message);
+      
+      if (result.data.results[0]?.success) {
+        setTestFeedback({
+          success: true,
+          message: "Post enviado com sucesso! Verifique sua rede social ou o feed integrado.",
+          channel: selectedChannel,
+          username: activeLogins.find(a => a.channel.toLowerCase() === selectedChannel.toLowerCase())?.username || "arinelcino",
+          status: "201_CREATED_SUCCESS"
+        });
+      } else {
+        throw new Error("Falha no disparo síncrono.");
       }
-      setTestFeedback({
-        success: true,
-        message: "Conexão validada! O sinal de pulso 'Olá, Open Studio!' disparou e autenticou com sucesso.",
-        channel: selectedChannel,
-        username: "arinelcino",
-        status: "200_OK_VERIFIED"
-      });
 
       // Refresh global activities log in high fidelity
       if (onRefreshState) {
@@ -81,7 +92,7 @@ export default function ChannelTestView({ state, onAddPost, onUpdatePostStatus, 
     } catch (err: any) {
       setTestFeedback({
         success: false,
-        message: err.message || "Erro de rede ao disparar teste de conexão de API."
+        message: err.message || "Erro ao postar. Verifique as credenciais do canal."
       });
     } finally {
       setIsTestingConnection(false);

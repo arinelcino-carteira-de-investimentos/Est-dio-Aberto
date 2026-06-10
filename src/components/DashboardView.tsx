@@ -29,6 +29,7 @@ import {
   BarChart3
 } from "lucide-react";
 import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 import { AppState } from "../types";
 import { PersonalCallNotification } from "./PersonalCallNotification";
 import { 
@@ -59,6 +60,7 @@ export default function DashboardView({ state, onSync, fullscreenMode = false, s
   const [syncing, setSyncing] = useState(false);
   const [syncTime, setSyncTime] = useState("08:40");
   const [showExportModal, setShowExportModal] = useState(false);
+  const [timeframe, setTimeframe] = useState<"7d" | "15d" | "30d">("30d");
 
   const handleSyncClick = async () => {
     setSyncing(true);
@@ -72,15 +74,40 @@ export default function DashboardView({ state, onSync, fullscreenMode = false, s
   };
 
   const leadsTotalCurrent = state.profile.leadsCapturedCount || 450;
-  const leadGrowthData = [
-    { name: "01/Mai", leads: Math.round(leadsTotalCurrent * 0.25), conversao: 74 },
-    { name: "06/Mai", leads: Math.round(leadsTotalCurrent * 0.40), conversao: 78 },
-    { name: "11/Mai", leads: Math.round(leadsTotalCurrent * 0.55), conversao: 81 },
-    { name: "16/Mai", leads: Math.round(leadsTotalCurrent * 0.70), conversao: 85 },
-    { name: "21/Mai", leads: Math.round(leadsTotalCurrent * 0.85), conversao: 89 },
-    { name: "26/Mai", leads: Math.round(leadsTotalCurrent * 0.95), conversao: 92 },
-    { name: "30/Mai", leads: leadsTotalCurrent, conversao: 96 },
-  ];
+  
+  const getLeadGrowthData = () => {
+    switch (timeframe) {
+      case "7d":
+        return [
+          { name: "03/Jun", leads: Math.round(leadsTotalCurrent * 0.88), conversao: 90, engajamento: 8.4 },
+          { name: "05/Jun", leads: Math.round(leadsTotalCurrent * 0.93), conversao: 92, engajamento: 8.6 },
+          { name: "07/Jun", leads: Math.round(leadsTotalCurrent * 0.97), conversao: 94, engajamento: 8.5 },
+          { name: "10/Jun", leads: leadsTotalCurrent, conversao: 96, engajamento: 8.9 },
+        ];
+      case "15d":
+        return [
+          { name: "26/Mai", leads: Math.round(leadsTotalCurrent * 0.72), conversao: 82, engajamento: 7.8 },
+          { name: "29/Mai", leads: Math.round(leadsTotalCurrent * 0.80), conversao: 86, engajamento: 8.0 },
+          { name: "01/Jun", leads: Math.round(leadsTotalCurrent * 0.85), conversao: 89, engajamento: 8.2 },
+          { name: "04/Jun", leads: Math.round(leadsTotalCurrent * 0.91), conversao: 91, engajamento: 8.4 },
+          { name: "07/Jun", leads: Math.round(leadsTotalCurrent * 0.96), conversao: 94, engajamento: 8.5 },
+          { name: "10/Jun", leads: leadsTotalCurrent, conversao: 96, engajamento: 8.9 },
+        ];
+      case "30d":
+      default:
+        return [
+          { name: "11/Mai", leads: Math.round(leadsTotalCurrent * 0.35), conversao: 74, engajamento: 6.8 },
+          { name: "16/Mai", leads: Math.round(leadsTotalCurrent * 0.48), conversao: 78, engajamento: 7.2 },
+          { name: "21/Mai", leads: Math.round(leadsTotalCurrent * 0.62), conversao: 81, engajamento: 7.5 },
+          { name: "26/Mai", leads: Math.round(leadsTotalCurrent * 0.74), conversao: 85, engajamento: 7.9 },
+          { name: "01/Jun", leads: Math.round(leadsTotalCurrent * 0.85), conversao: 89, engajamento: 8.1 },
+          { name: "06/Jun", leads: Math.round(leadsTotalCurrent * 0.94), conversao: 92, engajamento: 8.6 },
+          { name: "10/Jun", leads: leadsTotalCurrent, conversao: 96, engajamento: 8.9 },
+        ];
+    }
+  };
+
+  const leadGrowthData = getLeadGrowthData();
 
   const leadDistributionData = [
     { name: "LinkedIn", value: Math.round(leadsTotalCurrent * 0.40), color: "#0A66C2" },
@@ -427,11 +454,11 @@ export default function DashboardView({ state, onSync, fullscreenMode = false, s
     const doc = new jsPDF();
     
     // Header Bar Styling
-    doc.setFillColor(24, 24, 27); // Deep Zinc Slate Charcoal
+    doc.setFillColor(10, 10, 10); // Luxurious Black #0A0A0A
     doc.rect(0, 0, 210, 40, "F");
     
-    // Bottom thin red divider
-    doc.setFillColor(220, 38, 38); // Crimson accent Open Studio
+    // Bottom gold divider
+    doc.setFillColor(212, 175, 55); // Premium Gold #D4AF37
     doc.rect(0, 40, 210, 3, "F");
     
     // Top-left Corporate Identity
@@ -442,35 +469,36 @@ export default function DashboardView({ state, onSync, fullscreenMode = false, s
     
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
-    doc.text("CONTENT REPERCUSSION & LEAD CAPTURE ENGINE", 15, 28);
+    doc.text("DECISION ENGINE & LEAD CONVERSION ANALYTICS", 15, 28);
     
     // Metadata Block
-    doc.setTextColor(161, 161, 170); // Zinc-400
+    doc.setTextColor(212, 175, 55); // Gold text for key parameters
     doc.setFontSize(8);
     doc.text(`EXTRACAO EM: ${new Date().toLocaleDateString("pt-BR")}`, 145, 18);
     doc.text(`RESPONSAVEL: ${state.profile?.name?.toUpperCase() || "ARINELCINO"}`, 145, 24);
+    doc.setTextColor(161, 161, 170); // Zinc-400
     doc.text(`TIPO DE RELATORIO: ${mode.toUpperCase()}`, 145, 30);
     
     // Title Section
-    doc.setTextColor(24, 24, 27);
+    doc.setTextColor(10, 10, 10);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
-    doc.text("RELATÓRIO DE DESEMPENHO E PERFORMANCE GERAL", 15, 55);
+    doc.text("RELATÓRIO DE INTELIGÊNCIA E PERFORMANCE OPERACIONAL", 15, 55);
     
     doc.setFont("helvetica", "italic");
     doc.setFontSize(9);
     doc.setTextColor(113, 113, 122); // Zinc-500
-    doc.text("Consolidação automática de resultados baseados nos últimos 30 dias de campanhas automotivas e escutas de radar.", 15, 61);
+    doc.text("Consolidação automática dos fluxos de respostas automáticas, detecção de radar e dados de pipeline.", 15, 61);
     
     // Divider line
-    doc.setDrawColor(228, 228, 231); // Zinc-200
+    doc.setDrawColor(212, 175, 55); // Gold divider
     doc.setLineWidth(0.5);
     doc.line(15, 65, 195, 65);
     
     // Core KPIs section
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
-    doc.setTextColor(24, 24, 27);
+    doc.setTextColor(10, 10, 10);
     doc.text("Métricas Globais Consolidadas (KPIs)", 15, 75);
     
     const activeCamp = state.campaigns.filter(c => c.status === "Ativa").length;
@@ -481,17 +509,17 @@ export default function DashboardView({ state, onSync, fullscreenMode = false, s
     doc.setTextColor(63, 63, 70); // Zinc-700
     doc.text(`- Campanhas Ativas de Automação: ${activeCamp} simultâneas (de ${totalCamp} cadastradas)`, 20, 85);
     doc.text(`- Volume Geral de Leads Capturados: ${state.profile.leadsCapturedCount} leads aprovados`, 20, 92);
-    doc.text(`- DMs de Atração Enviadas (LinkedIn): ${state.profile.dmsSentCount} mensagens síncronas`, 20, 99);
-    doc.text(`- Comentários Triados e Respondidos: ${state.profile.repliesMadeCount} respostas automáticas`, 20, 106);
+    doc.text(`- DMs de Atração Enviadas: ${state.profile.dmsSentCount} mensagens síncronas`, 20, 99);
+    doc.text(`- Comentários Triados e Respondidos: ${state.profile.repliesMadeCount} respostas automáticas`, 20, 110);
     
     // Performance assessment box
-    doc.setFillColor(244, 244, 245); // Zinc-100 grey background box
-    doc.rect(15, 113, 180, 25, "F");
+    doc.setFillColor(248, 246, 240); // Soft, warm sand/cream background box
+    doc.rect(15, 117, 180, 25, "F");
     
-    doc.setTextColor(24, 24, 27);
+    doc.setTextColor(10, 10, 10);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(9);
-    doc.text("ASSINATURA DE DESEMPENHO PREVISTO (KPI INSIGHT)", 20, 120);
+    doc.text("ASSINATURA DE DESEMPENHO E INSIGHTS DE CONVERSÃO", 20, 123);
     
     doc.setFont("helvetica", "normal");
     doc.setTextColor(82, 82, 91); // Zinc-600
@@ -499,147 +527,127 @@ export default function DashboardView({ state, onSync, fullscreenMode = false, s
       ? ((state.profile.leadsCapturedCount / state.profile.repliesMadeCount) * 100).toFixed(1) 
       : "95.2";
       
-    doc.text(`Sua taxa média de conversão agregada por comentário respondido está em excelentes ${conversionRateAll}%.`, 20, 126);
-    doc.text("Os canais de YouTube e LinkedIn continuam liderando o ranking de atração no radar de hoje.", 20, 132);
-    
-    let y = 150;
+    doc.text(`A taxa média de conversão agregada em relação à triagem de comentários está em excelentes ${conversionRateAll}%.`, 20, 129);
+    doc.text("O Instagram e a rede de canais LinkedIn lideram a densidade de audiência monitorada.", 20, 135);
+
+    let currentY = 150;
     
     if (mode === "resumo") {
-      // 30 Days trend summary
+      // 1. Resumo de Crescimento de Leads (jspdf-autotable)
       doc.setFont("helvetica", "bold");
       doc.setFontSize(11);
-      doc.setTextColor(24, 24, 27);
-      doc.text("Resumo de Crescimento de Leads (Últimos 30 Dias)", 15, y);
+      doc.setTextColor(10, 10, 10);
+      doc.text("Demonstrativo de Leads e Conversão (Últimos 30 Dias)", 15, currentY);
       
-      y += 8;
-      // List entries in report
-      const summaryData = [
-        { date: "01/Mai", leads: Math.round(leadsTotalCurrent * 0.25), conv: "74%" },
-        { date: "06/Mai", leads: Math.round(leadsTotalCurrent * 0.40), conv: "78%" },
-        { date: "11/Mai", leads: Math.round(leadsTotalCurrent * 0.55), conv: "81%" },
-        { date: "16/Mai", leads: Math.round(leadsTotalCurrent * 0.70), conv: "85%" },
-        { date: "21/Mai", leads: Math.round(leadsTotalCurrent * 0.85), conv: "89%" },
-        { date: "26/Mai", leads: Math.round(leadsTotalCurrent * 0.95), conv: "92%" },
-        { date: "30/Mai", leads: leadsTotalCurrent, conv: "96%" }
+      const summaryHeaders = [["Dia de Apuração", "Leads Capturados (Acumulado)", "Taxa de Conversão Diária"]];
+      const summaryBody = [
+        ["11/Mai", `${Math.round(leadsTotalCurrent * 0.35)} contatos`, "74%"],
+        ["16/Mai", `${Math.round(leadsTotalCurrent * 0.48)} contatos`, "78%"],
+        ["21/Mai", `${Math.round(leadsTotalCurrent * 0.62)} contatos`, "81%"],
+        ["26/Mai", `${Math.round(leadsTotalCurrent * 0.74)} contatos`, "85%"],
+        ["01/Jun", `${Math.round(leadsTotalCurrent * 0.85)} contatos`, "89%"],
+        ["06/Jun", `${Math.round(leadsTotalCurrent * 0.94)} contatos`, "92%"],
+        ["10/Jun", `${leadsTotalCurrent} contatos`, "96%"]
       ];
-      
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(9);
-      doc.text("Dia de Apuração", 20, y);
-      doc.text("Leads Capturados (Acumulado)", 75, y);
-      doc.text("Taxa de Conversão Diária", 135, y);
-      
-      doc.line(15, y+2, 195, y+2);
-      
-      y += 7;
-      doc.setFont("helvetica", "normal");
-      summaryData.forEach((item) => {
-        doc.text(item.date, 20, y);
-        doc.text(`${item.leads} contatos`, 75, y);
-        doc.text(item.conv, 135, y);
-        y += 6;
+
+      autoTable(doc, {
+        startY: currentY + 4,
+        head: summaryHeaders,
+        body: summaryBody,
+        theme: "striped",
+        headStyles: { fillColor: [10, 10, 10], textColor: [212, 175, 55], fontStyle: "bold" },
+        styles: { fontSize: 9, font: "helvetica" },
+        alternateRowStyles: { fillColor: [248, 246, 240] }
       });
       
-      y += 10;
+      // Let's draw the Sources composition
+      const finalY = (doc as any).lastAutoTable.finalY + 12;
       doc.setFont("helvetica", "bold");
       doc.setFontSize(11);
-      doc.setTextColor(24, 24, 27);
-      doc.text("Composição das Fontes Registradas", 15, y);
+      doc.setTextColor(10, 10, 10);
+      doc.text("Composição das Fontes de Captação", 15, finalY);
       
-      y += 8;
       doc.setFont("helvetica", "normal");
-      doc.text(`- Canal LinkedIn Comments: ${Math.round(leadsTotalCurrent * 0.55)} leads validados`, 20, y);
-      y += 6;
-      doc.text(`- Canal YouTube / Tutoriais: ${Math.round(leadsTotalCurrent * 0.30)} leads validados`, 20, y);
-      y += 6;
-      doc.text(`- Canal Blog / Outros canais: ${Math.round(leadsTotalCurrent * 0.15)} leads validados`, 20, y);
-      
+      doc.setFontSize(10);
+      doc.setTextColor(63, 63, 70);
+      doc.text(`- LinkedIn Comments: ${Math.round(leadsTotalCurrent * 0.40)} contatos qualificados`, 20, finalY + 8);
+      doc.text(`- Instagram Posts: ${Math.round(leadsTotalCurrent * 0.25)} contatos ativos`, 20, finalY + 14);
+      doc.text(`- TikTok / Outros: ${Math.round(leadsTotalCurrent * 0.35)} contatos`, 20, finalY + 20);
+
     } else {
-      // Comprehensive Detail (Completo)
+      // 2. Completo (Grades Detalhadas de Campanhas e Leads)
       doc.setFont("helvetica", "bold");
       doc.setFontSize(11);
-      doc.setTextColor(24, 24, 27);
-      doc.text("Grade de Campanhas de Automação", 15, y);
-      
-      y += 8;
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(8);
-      doc.setTextColor(113, 113, 122);
-      doc.text("POSTRAGEM ALVO", 20, y);
-      doc.text("PALAVRA-CHAVE", 100, y);
-      doc.text("TRIADO", 140, y);
-      doc.text("LEADS", 165, y);
-      doc.text("STATUS", 183, y);
-      
-      doc.line(15, y + 2, 195, y + 2);
-      
-      y += 7;
-      doc.setFont("helvetica", "normal");
-      doc.setTextColor(24, 24, 27);
-      state.campaigns.forEach((c) => {
-        if (y > 270) {
-          doc.addPage();
-          y = 20;
-        }
-        const nameTrunc = c.postTitle.length > 40 ? c.postTitle.substring(0, 38) + "..." : c.postTitle;
-        doc.text(nameTrunc, 20, y);
-        doc.text(c.keyword, 100, y);
-        doc.text(String(c.respondidos), 140, y);
-        doc.text(String(c.leads), 165, y);
-        doc.text(c.status, 183, y);
-        y += 6;
+      doc.setTextColor(10, 10, 10);
+      doc.text("Grade Completa de Campanhas de Automação", 15, currentY);
+
+      const campaignHeaders = [["Campaign/Robot", "Palavra-Chave", "Respondido", "Leads", "Status"]];
+      const campaignBody = state.campaigns.map(c => [
+        c.postTitle.length > 35 ? c.postTitle.substring(0, 33) + "..." : c.postTitle,
+        c.keyword,
+        String(c.respondidos),
+        String(c.leads),
+        c.status
+      ]);
+
+      autoTable(doc, {
+        startY: currentY + 4,
+        head: campaignHeaders,
+        body: campaignBody,
+        theme: "grid",
+        headStyles: { fillColor: [10, 10, 10], textColor: [212, 175, 55] },
+        styles: { fontSize: 8.5 },
+        alternateRowStyles: { fillColor: [250, 250, 250] },
+        margin: { top: 15 }
       });
-      
-      y += 10;
-      if (y > 250) {
-        doc.addPage();
-        y = 25;
-      }
-      
+
+      const secondY = (doc as any).lastAutoTable.finalY + 12;
       doc.setFont("helvetica", "bold");
       doc.setFontSize(11);
-      doc.setTextColor(24, 24, 27);
-      doc.text("Últimos Leads Qualificados", 15, y);
+      doc.setTextColor(10, 10, 10);
       
-      y += 8;
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(8);
-      doc.setTextColor(113, 113, 122);
-      doc.text("NOME DO LEAD", 20, y);
-      doc.text("CARGO / EMPRESA", 70, y);
-      doc.text("E-MAIL", 125, y);
-      doc.text("STATUS", 175, y);
-      
-      doc.line(15, y + 2, 195, y + 2);
-      y += 7;
-      
-      doc.setFont("helvetica", "normal");
-      doc.setTextColor(24, 24, 27);
-      state.leads.slice(0, 15).forEach((l) => {
-        if (y > 275) {
-          doc.addPage();
-          y = 20;
-        }
-        doc.text(l.name, 20, y);
-        const compString = `${l.role} @ ${l.company}`;
-        doc.text(compString.length > 28 ? compString.substring(0, 26) + "..." : compString, 70, y);
-        doc.text(l.email, 125, y);
-        doc.text(l.status, 175, y);
-        y += 6.5;
+      // Handle page break nicely if there is not enough vertical space
+      if (secondY > 240) {
+        doc.addPage();
+        currentY = 25;
+      } else {
+        currentY = secondY;
+      }
+
+      doc.text("Grade Detalhada de Leads Capturados", 15, currentY);
+
+      const leadHeaders = [["Nome do Lead", "Cargo / Organização", "E-mail", "Status Pipeline"]];
+      const leadBody = state.leads.slice(0, 30).map(l => [
+        l.name,
+        `${l.role} @ ${l.company}`,
+        l.email,
+        l.status
+      ]);
+
+      autoTable(doc, {
+        startY: currentY + 4,
+        head: leadHeaders,
+        body: leadBody,
+        theme: "striped",
+        headStyles: { fillColor: [10, 10, 10], textColor: [212, 175, 55] },
+        styles: { fontSize: 8.5 },
+        alternateRowStyles: { fillColor: [248, 246, 240] },
+        margin: { top: 15 }
       });
     }
-    
-    // Draw footer on all pages
+
+    // Footers rendering on every page
     const pageCount = (doc as any).internal.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
-      doc.setDrawColor(228, 228, 231);
+      doc.setDrawColor(212, 175, 55); // Gold footer rule
+      doc.setLineWidth(0.5);
       doc.line(15, 282, 195, 282);
       
       doc.setFont("helvetica", "normal");
       doc.setFontSize(8);
-      doc.setTextColor(161, 161, 170); // Zinc-400
-      doc.text("Open Studio Analytics Engine - NoCode StartUp", 15, 288);
+      doc.setTextColor(161, 161, 170);
+      doc.text("Open Studio Automation Platform · Montserrat Style Edition", 15, 288);
       doc.text(`Página ${i} de ${pageCount}`, 175, 288);
     }
     
@@ -1043,17 +1051,32 @@ export default function DashboardView({ state, onSync, fullscreenMode = false, s
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 pt-4 border-t border-zinc-105">
         {/* Chart 1: Leads vs. Conversão (Últimos 30 dias) */}
         <div className="bg-white border border-zinc-150 rounded-xl p-5 shadow-2xs hover:border-zinc-300 transition-all text-left space-y-4">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
             <div className="space-y-0.5">
               <span className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
-                <LineIcon className="w-3.5 h-3.5 text-indigo-500" />
+                <LineIcon className="w-3.5 h-3.5 text-[#D4AF37]" />
                 Performance Operacional
               </span>
-              <h3 className="text-base font-bold text-zinc-900 tracking-tight font-sans">Leads vs. Conversão (30d)</h3>
+              <h3 className="text-base font-bold text-zinc-900 tracking-tight font-sans">Evolução de Conversão ({timeframe})</h3>
             </div>
-            <span className="text-[10px] font-mono font-bold bg-indigo-50 text-indigo-700 border border-indigo-100 px-2 py-0.5 rounded uppercase font-sans">
-              Melhor Conversão: 96%
-            </span>
+            
+            {/* Timeframe Picker */}
+            <div className="flex bg-zinc-100 p-0.5 rounded-lg border border-zinc-200 self-start sm:self-auto">
+              {(["7d", "15d", "30d"] as const).map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setTimeframe(t)}
+                  className={`text-[10px] uppercase font-bold px-3 py-1.5 rounded-md transition-all cursor-pointer ${
+                    timeframe === t 
+                      ? "bg-zinc-900 text-[#D4AF37] shadow-xs" 
+                      : "text-zinc-500 hover:text-zinc-800"
+                  }`}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="h-64 w-full">
@@ -1061,22 +1084,22 @@ export default function DashboardView({ state, onSync, fullscreenMode = false, s
               <AreaChart data={leadGrowthData} margin={{ top: 10, right: -5, left: -25, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorLeads" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.15}/>
-                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#8884d8" stopOpacity={0.15}/>
+                    <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f4f4f5" />
                 <XAxis dataKey="name" stroke="#a1a1aa" fontSize={10} tickLine={false} axisLine={false} />
-                <YAxis yAxisId="left" stroke="#4f46e5" fontSize={10} tickLine={false} axisLine={false} />
-                <YAxis yAxisId="right" orientation="right" stroke="#eab308" fontSize={10} tickLine={false} axisLine={false} domain={[0, 100]} />
+                <YAxis yAxisId="left" stroke="#8884d8" fontSize={10} tickLine={false} axisLine={false} />
+                <YAxis yAxisId="right" orientation="right" stroke="#D4AF37" fontSize={10} tickLine={false} axisLine={false} domain={[0, 100]} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: "#18181b", borderRadius: "8px", border: "none" }}
+                  contentStyle={{ backgroundColor: "#0A0A0A", borderRadius: "12px", border: "1px solid #D4AF37" }}
                   labelStyle={{ color: "#a1a1aa", fontSize: "10px", fontFamily: "monospace" }}
                   itemStyle={{ fontSize: "11px", fontWeight: "bold" }}
                 />
                 <Legend wrapperStyle={{ fontSize: "10px" }} />
-                <Area yAxisId="left" type="monotone" dataKey="leads" name="Leads Capturados (N)" stroke="#4f46e5" strokeWidth={2.5} fillOpacity={1} fill="url(#colorLeads)" />
-                <Line yAxisId="right" type="monotone" dataKey="conversao" name="Conversão (%)" stroke="#eab308" strokeWidth={2} activeDot={{ r: 5 }} />
+                <Area yAxisId="left" type="monotone" dataKey="leads" name="Leads Capturados" stroke="#8884d8" strokeWidth={2.5} fillOpacity={1} fill="url(#colorLeads)" />
+                <Line yAxisId="right" type="monotone" dataKey="conversao" name="Conversão (%)" stroke="#D4AF37" strokeWidth={2} activeDot={{ r: 5 }} />
               </AreaChart>
             </ResponsiveContainer>
           </div>

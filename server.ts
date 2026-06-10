@@ -1733,6 +1733,44 @@ app.post("/api/social/test-connection", (req, res) => {
   });
 });
 
+app.post("/api/social/dispatch", (req, res) => {
+  const db = loadDb();
+  const { channels, message } = req.body;
+  if (!channels || !Array.isArray(channels) || channels.length === 0) {
+    return res.status(400).json({ error: "Lista de canais de destino é obrigatória." });
+  }
+  if (!message || message.trim() === "") {
+    return res.status(400).json({ error: "A mensagem a ser publicada não pode estar vazia." });
+  }
+
+  channels.forEach((ch: string) => {
+    // Register the post in db.posts
+    const newPost = {
+      id: "post_" + Date.now() + "_" + Math.floor(Math.random() * 1000),
+      title: message.length > 30 ? message.substring(0, 27) + "..." : message,
+      channel: ch,
+      status: "Publicado" as const,
+      scheduledDate: "",
+      publishDate: new Date().toLocaleDateString("pt-BR"),
+      author: db.profile?.name || "Arinelcino",
+      keyword: "teste",
+      content: message
+    };
+    if (!db.posts) db.posts = [];
+    db.posts.unshift(newPost);
+
+    db.activityLogs.unshift({
+      id: "log_" + Date.now(),
+      timestamp: new Date().toISOString(),
+      message: `[CAMPANHAS ADM] Transmissão síncrona enviada com sucesso no canal: ${ch}.`,
+      type: "success"
+    });
+  });
+
+  saveDb(db);
+  res.json({ success: true, posts: db.posts, activityLogs: db.activityLogs });
+});
+
 // Vite middleware setup
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {

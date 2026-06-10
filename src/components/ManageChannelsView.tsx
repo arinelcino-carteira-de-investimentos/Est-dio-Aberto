@@ -68,6 +68,90 @@ export default function ManageChannelsView({ state, onRefreshState }: ManageChan
     { id: "Pinterest", name: "Pinterest Pro Boards", icon: <PinterestIcon className="w-5 h-5 text-[#BD081C]" />, color: "border-l-[#BD081C]" }
   ];
 
+  const getLabelsForChannel = (channel: string | null) => {
+    if (!channel) return null;
+    const cid = channel.toLowerCase();
+    if (cid === "linkedin") {
+      return {
+        username: "ID ou Nome de Usuário",
+        usernamePlaceholder: "ex: arinelcino",
+        token: "Access Token",
+        tokenPlaceholder: "Bearer token de acesso",
+        appId: "Person ID",
+        appIdPlaceholder: "urn:li:person:...",
+        hasClientSecret: false,
+        clientSecretLabel: ""
+      };
+    } else if (cid === "instagram") {
+      return {
+        username: "ID ou Nome de Usuário",
+        usernamePlaceholder: "ex: arinelcino_studio",
+        token: "Access Token",
+        tokenPlaceholder: "IGQVJ...",
+        appId: "Business Account ID",
+        appIdPlaceholder: "178414...",
+        hasClientSecret: false,
+        clientSecretLabel: ""
+      };
+    } else if (cid === "facebook") {
+      return {
+        username: "Nome da Fanpage",
+        usernamePlaceholder: "ex: Open Studio Oficial",
+        token: "Access Token",
+        tokenPlaceholder: "EAAC...",
+        appId: "Page ID",
+        appIdPlaceholder: "123456789",
+        hasClientSecret: false,
+        clientSecretLabel: ""
+      };
+    } else if (cid === "tiktok") {
+      return {
+        username: "Handle do TikTok",
+        usernamePlaceholder: "ex: @open_studio",
+        token: "Access Token",
+        tokenPlaceholder: "act.example...",
+        appId: "Open ID",
+        appIdPlaceholder: "from TikTok login",
+        hasClientSecret: false,
+        clientSecretLabel: ""
+      };
+    } else if (cid === "youtube") {
+      return {
+        username: "Nome do Canal",
+        usernamePlaceholder: "ex: Open Studio TV",
+        token: "API Key",
+        tokenPlaceholder: "AIzaSy...",
+        appId: "Channel ID",
+        appIdPlaceholder: "UC...",
+        hasClientSecret: false,
+        clientSecretLabel: ""
+      };
+    } else if (cid === "twitter" || cid === "x") {
+      return {
+        username: "User Handle Twitter",
+        usernamePlaceholder: "ex: open_studio",
+        token: "Access Token / API Key",
+        tokenPlaceholder: "Access Token ou API Key",
+        appId: "Access Secret / Consumer Key",
+        appIdPlaceholder: "Access Secret ou Consumer Key",
+        hasClientSecret: true,
+        clientSecretLabel: "API Secret / Access Secret"
+      };
+    }
+    return {
+      username: "Identificador ou Nome de Usuário (@perfil)",
+      usernamePlaceholder: "ex: openstudio_agency",
+      token: "Bearer Access Token / JWT Secret",
+      tokenPlaceholder: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      appId: "Client Key / App ID (Opcional)",
+      appIdPlaceholder: "app_cli_839174",
+      hasClientSecret: true,
+      clientSecretLabel: "App Client Secret Key"
+    };
+  };
+
+  const labels = getLabelsForChannel(activeConfigChannel);
+
   const handleOpenConfig = (channelId: string) => {
     const existing = socialConnections.find((c) => c.channel.toLowerCase() === channelId.toLowerCase());
     setActiveConfigChannel(channelId);
@@ -262,8 +346,8 @@ export default function ManageChannelsView({ state, onRefreshState }: ManageChan
 
         {/* Configuration Panel - Right side */}
         <div className="bg-zinc-50 border border-zinc-250 p-5 rounded-3xl min-h-[300px] flex flex-col justify-start">
-          {activeConfigChannel ? (
-            <form onSubmit={handleSaveConnection} className="space-y-4 text-xs">
+          {activeConfigChannel && labels ? (
+            <form onSubmit={handleSaveConnection} className="space-y-4 text-xs animate-fade-in">
               <div className="flex items-center justify-between pb-2 border-b border-zinc-200">
                 <span className="font-bold text-slate-800 text-xs font-mono uppercase tracking-wide">
                   Chaves de Integração: {activeConfigChannel}
@@ -281,14 +365,14 @@ export default function ManageChannelsView({ state, onRefreshState }: ManageChan
               <div className="space-y-1">
                 <label className="text-[10px] font-mono font-bold text-zinc-450 uppercase flex items-center gap-1">
                   <Globe className="w-3.5 h-3.5 text-zinc-400" />
-                  <span>Identificador ou Nome de Usuário (@perfil)</span>
+                  <span>{labels.username}</span>
                 </label>
                 <input
                   type="text"
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="ex: openstudio_agency"
+                  placeholder={labels.usernamePlaceholder}
                   className="w-full text-xs text-zinc-750 bg-white border border-zinc-250 rounded-xl p-3 focus:outline-hidden focus:ring-1 focus:ring-zinc-900 font-medium"
                 />
               </div>
@@ -297,7 +381,7 @@ export default function ManageChannelsView({ state, onRefreshState }: ManageChan
               <div className="space-y-1">
                 <label className="text-[10px] font-mono font-bold text-zinc-450 uppercase flex items-center gap-1">
                   <KeyRound className="w-3.5 h-3.5 text-zinc-400" />
-                  <span>Bearer Access Token / JWT Secret</span>
+                  <span>{labels.token}</span>
                 </label>
                 <div className="relative">
                   <input
@@ -305,47 +389,50 @@ export default function ManageChannelsView({ state, onRefreshState }: ManageChan
                     required
                     value={token}
                     onChange={(e) => setToken(e.target.value)}
-                    placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    placeholder={labels.tokenPlaceholder}
                     className="w-full text-xs text-zinc-750 bg-white border border-zinc-250 rounded-xl p-3 pr-10 focus:outline-hidden focus:ring-1 focus:ring-zinc-900 font-mono text-[10px]"
                   />
                 </div>
               </div>
 
-              {/* Advanced toggle fields only for deep API connections */}
+              {/* Advanced parameters based on dynamic fields */}
               <div className="space-y-2.5 pt-1.5 border-t border-zinc-200">
-                <span className="text-[9.5px] font-mono text-zinc-400 uppercase tracking-widest block font-bold">Credenciais do App Developer (Opcionais)</span>
+                <span className="text-[9.5px] font-mono text-zinc-400 uppercase tracking-widest block font-bold">Parâmetros Adicionais da API</span>
                 
                 <div className="grid grid-cols-2 gap-2 text-[10px]">
-                  <div className="space-y-1">
-                    <label className="text-[8.5px] font-mono font-bold text-zinc-405 uppercase block">API Base URL</label>
-                    <input
-                      type="text"
-                      value={apiUrl}
-                      onChange={(e) => setApiUrl(e.target.value)}
-                      placeholder="https://api.linkedin.com/v2"
-                      className="w-full text-[10.5px] text-zinc-700 bg-white border border-zinc-250 rounded-lg p-2 focus:outline-hidden"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-[8.5px] font-mono font-bold text-zinc-405 uppercase block">Client Key / App ID</label>
+                  <div className="space-y-1 col-span-2">
+                    <label className="text-[8.5px] font-mono font-bold text-zinc-405 uppercase block">{labels.appId}</label>
                     <input
                       type="text"
                       value={appId}
                       onChange={(e) => setAppId(e.target.value)}
-                      placeholder="app_cli_839174"
-                      className="w-full text-[10.5px] text-zinc-700 bg-white border border-zinc-250 rounded-lg p-2 focus:outline-hidden"
+                      placeholder={labels.appIdPlaceholder}
+                      className="w-full text-xs text-zinc-700 bg-white border border-zinc-250 rounded-xl p-3 focus:outline-hidden"
                     />
                   </div>
                 </div>
 
+                {labels.hasClientSecret && (
+                  <div className="space-y-1">
+                    <label className="text-[8.5px] font-mono font-bold text-zinc-405 uppercase block">{labels.clientSecretLabel}</label>
+                    <input
+                      type="password"
+                      value={clientSecret}
+                      onChange={(e) => setClientSecret(e.target.value)}
+                      placeholder="••••••••••••••••••••••••"
+                      className="w-full text-xs text-zinc-700 bg-white border border-zinc-250 rounded-xl p-3 focus:outline-hidden"
+                    />
+                  </div>
+                )}
+
                 <div className="space-y-1">
-                  <label className="text-[8.5px] font-mono font-bold text-zinc-405 uppercase block">App Client Secret Key</label>
+                  <label className="text-[8.5px] font-mono font-bold text-zinc-405 uppercase block">URL Base / Endpoint Auxiliar</label>
                   <input
-                    type="password"
-                    value={clientSecret}
-                    onChange={(e) => setClientSecret(e.target.value)}
-                    placeholder="••••••••••••••••••••••••"
-                    className="w-full text-[10.5px] text-zinc-700 bg-white border border-zinc-250 rounded-lg p-2 focus:outline-hidden"
+                    type="text"
+                    value={apiUrl}
+                    onChange={(e) => setApiUrl(e.target.value)}
+                    placeholder="https://api.platform.com/v1"
+                    className="w-full text-xs text-zinc-750 bg-white border border-zinc-250 rounded-xl p-3 focus:outline-hidden"
                   />
                 </div>
               </div>
@@ -359,7 +446,7 @@ export default function ManageChannelsView({ state, onRefreshState }: ManageChan
                   {submitting ? (
                     <>
                       <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                      <span>Salvando Tokens...</span>
+                      <span>Salvando Chaves...</span>
                     </>
                   ) : (
                     <>

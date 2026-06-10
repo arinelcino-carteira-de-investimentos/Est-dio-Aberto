@@ -42,7 +42,60 @@ export default function App() {
   };
 
   useEffect(() => {
-    loadState();
+    if (!isSupabaseConfigured() || !supabase) {
+      loadState();
+      return;
+    }
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log("Supabase Auth Event:", event, session);
+      if (session?.user) {
+        try {
+          const email = session.user.email || "";
+          const username = session.user.user_metadata?.username || email.split("@")[0];
+          const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          const lastLoginAt = new Date().toISOString();
+
+          const res = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, username, timezone, lastLoginAt }),
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.success) {
+              setState(data);
+              setLoading(false);
+            }
+          }
+        } catch (err) {
+          console.error("Failed to sync Supabase auth session", err);
+          loadState();
+        }
+      } else if (event === "SIGNED_OUT") {
+        try {
+          const res = await fetch("/api/auth/logout", { method: "POST" });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.success) {
+              setState(prev => prev ? {
+                ...prev,
+                authSession: { isLoggedIn: false, username: "", email: "" }
+              } : null);
+            }
+          }
+        } catch (err) {
+          console.error("Failed to log out cleanly on state change", err);
+        }
+        setLoading(false);
+      } else {
+        loadState();
+      }
+    });
+
+    return () => {
+      subscription?.unsubscribe();
+    };
   }, []);
 
   // Keyboard Shortcuts for ERP Operational Efficiency
@@ -418,6 +471,9 @@ export default function App() {
 
   const handleLogout = async () => {
     try {
+      if (isSupabaseConfigured() && supabase) {
+        await supabase.auth.signOut();
+      }
       const res = await fetch("/api/auth/logout", { method: "POST" });
       const data = await res.json();
       if (data.success && state) {
