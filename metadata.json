@@ -1,0 +1,6 @@
+{
+  "name": "Open Studio",
+  "description": "Plataforma de automação de conteúdo da NoCode Startup para LinkedIn, campanhas de comentários, radar de tendências e geração de posts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

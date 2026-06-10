@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", sans-serif;
+  --font-display: "Montserrat", sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Global ultra-smooth transitions on interaction targets */
+a, button, input, textarea, select, div {
+  transition-property: background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 250ms;
+}
+
+@layer base {
+  /* Premium Dark Mode Stylesheets Override */
+  .dark {
+    background-color: #09090b !important; /* Charcoal dark background */
+    color: #f4f4f5 !important;
+  }
+  
+  .dark main,
+  .dark .bg-zinc-100,
+  .dark .bg-zinc-100\/60 {
+    background-color: #09090b !important;
+  }
+
+  .dark .bg-white,
+  .dark .bg-zinc-50\/50,
+  .dark .bg-slate-50\/55,
+  .dark .bg-zinc-100/50 {
+    background-color: #141416 !important; /* Obsidian card grey */
+    border-color: #242427 !important;
+  }
+
+  .dark .text-zinc-900,
+  .dark .text-zinc-800,
+  .dark .text-zinc-750,
+  .dark .text-zinc-700 {
+    color: #f4f4f5 !important;
+  }
+
+  .dark .text-zinc-500,
+  .dark .text-zinc-650,
+  .dark .text-zinc-600 {
+    color: #a1a1aa !important; /* zinc-405 soft grey */
+  }
+
+  .dark .border-zinc-100,
+  .dark .border-zinc-150,
+  .dark .border-zinc-200,
+  .dark .border-zinc-250 {
+    border-color: #202023 !important;
+  }
+
+  .dark .bg-zinc-50,
+  .dark .bg-white\/50 {
+    background-color: #1c1c1f !important;
+    border-color: #27272a !important;
+  }
+
+  .dark .hover\:bg-zinc-50:hover,
+  .dark .hover\:bg-zinc-100:hover,
+  .dark .bg-zinc-100 {
+    background-color: #202023 !important;
+    color: #f4f4f5 !important;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #printable-pdf-report, #printable-pdf-report * {
+    visibility: visible !important;
+  }
+  #printable-pdf-report {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    background: white !important;
+    color: black !important;
+  }
+}

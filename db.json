@@ -1,0 +1,618 @@
+{
+  "profile": {
+    "name": "Arinelcino Gonçalves de Sena",
+    "email": "arinelcino@gmail.com",
+    "role": "Head de Conteúdo",
+    "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+    "activeCampaignsCount": 2,
+    "leadsCapturedCount": 20,
+    "dmsSentCount": 170,
+    "repliesMadeCount": 762
+  },
+  "config": {
+    "masterPrompt": "Você é diretor de arte/editorial da NoCode StartUp.\n\nSua função NÃO é criar infográficos genéricos.\n\nSua função é transformar conteúdos sobre:\n- IA\n- Claude\n- ChatGPT\n- automação\n- agentes de IA",
+    "defaultHashtags": "#ia #nocode #automacao #claudecode #agentesia",
+    "toneOfVoice": "Técnico Avançado (Para Devs)",
+    "fixedGenerationTime": "16:10",
+    "automationActive": true,
+    "automationTasks": [
+      "generation",
+      "leadsAuto"
+    ],
+    "timezone": "America/Sao_Paulo",
+    "emailNotificationsEnabled": true,
+    "notificationEmail": "arinelcino@gmail.com",
+    "notifyOnCampaignComplete": true,
+    "notifyOnErrorCritical": true
+  },
+  "campaigns": [
+    {
+      "id": "c1",
+      "robot": "linkedin-reply-comments",
+      "postTitle": "Liberamos Um Curso Gratuito De Claude Code",
+      "postLink": "https://www.linkedin.com/posts/matheuscastelobranco_liberamos-um-curso-gratuito-de-claude-code",
+      "keyword": "claude",
+      "status": "Ativa",
+      "respondidos": 160,
+      "pendentes": 220,
+      "leads": 155,
+      "createdAt": "2026-05-15"
+    },
+    {
+      "id": "c2",
+      "robot": "linkedin-reply-comments",
+      "postTitle": "As Skills Que Eu Instalaria Hoje No Claude",
+      "postLink": "https://www.linkedin.com/posts/matheuscastelobranco_as-skills-que-eu-instalaria-hoje",
+      "keyword": "claude",
+      "status": "Ativa",
+      "respondidos": 554,
+      "pendentes": 213,
+      "leads": 533,
+      "createdAt": "2026-05-18"
+    },
+    {
+      "id": "c3",
+      "robot": "linkedin-reply-comments",
+      "postTitle": "Testei O Open Design O Clone Do Claude Design",
+      "postLink": "https://www.linkedin.com/posts/matheuscastelobranco_testei-o-open-design",
+      "keyword": "design",
+      "status": "Pausada",
+      "respondidos": 43,
+      "pendentes": 0,
+      "leads": 41,
+      "createdAt": "2026-05-20"
+    },
+    {
+      "id": "c4",
+      "robot": "linkedin-dm-new",
+      "postTitle": "Liberamos Um Curso Gratuito De Claude Code",
+      "postLink": "https://www.linkedin.com/posts/matheuscastelobranco_liberamos-um-curso-gratuito-de-claude-code",
+      "keyword": "claude",
+      "status": "Pausada",
+      "respondidos": 127,
+      "pendentes": 0,
+      "leads": 124,
+      "createdAt": "2026-05-15"
+    },
+    {
+      "id": "c5",
+      "robot": "linkedin-dm-new",
+      "postTitle": "As Skills Que Eu Instalaria Hoje No Claude",
+      "postLink": "https://www.linkedin.com/posts/matheuscastelobranco_as-skills-que-eu-instalaria-hoje",
+      "keyword": "claude",
+      "status": "Pausada",
+      "respondidos": 58,
+      "pendentes": 0,
+      "leads": 52,
+      "createdAt": "2026-05-18"
+    },
+    {
+      "id": "c6",
+      "robot": "linkedin-dm-new",
+      "postTitle": "Esses Sãos Os 3 Níveis De Uso Do Claude Code",
+      "postLink": "https://www.linkedin.com/posts/matheuscastelobranco_esses-sao-os-3-niveis-de-uso",
+      "keyword": "claude",
+      "status": "Pausada",
+      "respondidos": 194,
+      "pendentes": 0,
+      "leads": 184,
+      "createdAt": "2026-05-22"
+    },
+    {
+      "id": "c7",
+      "robot": "linkedin-dm-reconnect",
+      "postTitle": "Liberamos Um Curso Gratuito De Claude Code",
+      "postLink": "https://www.linkedin.com/posts/matheuscastelobranco_liberamos-um-curso-gratuito-de-claude-code",
+      "keyword": "claude",
+      "status": "Pausada",
+      "respondidos": 84,
+      "pendentes": 0,
+      "leads": 72,
+      "createdAt": "2026-05-24"
+    },
+    {
+      "id": "c_low",
+      "robot": "linkedin-reply-comments",
+      "postTitle": "Como Vender Projetos Antigos Para Leads Frios",
+      "postLink": "https://www.linkedin.com/posts/matheuscastelobranco_como-vender-projetos-antigos",
+      "keyword": "vendas",
+      "status": "Ativa",
+      "respondidos": 165,
+      "pendentes": 4,
+      "leads": 6,
+      "createdAt": "2026-06-05"
+    }
+  ],
+  "posts": [
+    {
+      "id": "p1",
+      "title": "A oportunidade real em IA em 2026 não é agência de automação — é ser o profissional que implementa IA dentro das empresas",
+      "channel": "YouTube",
+      "status": "Agendado",
+      "scheduledDate": "21 de mai - 08:30",
+      "publishDate": "18 de mai",
+      "author": "Matheus",
+      "keyword": "ia",
+      "content": "Eu cansei de ouvir falar em criar agência de automação de IA sem entregar real valor. Em 2026, quem vence o jogo é o trabalhador qualificado que sabe integrar Claude, OpenAI e Make no fluxo do dia a dia..."
+    },
+    {
+      "id": "p2",
+      "title": "Rotinas do Claude Code — automações rodando na nuvem sem depender do seu computador",
+      "channel": "YouTube",
+      "status": "Agendado",
+      "scheduledDate": "Hoje, 19:29",
+      "publishDate": "18 de mai",
+      "author": "Matheus",
+      "keyword": "claude",
+      "content": "Deixar robôs rodando em background sempre foi um saco. Com o novo terminal do Claude Code e servidores virtuais, você cria workflows autônomos que performam auditorias e deploy em segundo plano. Segue o fio para ver como configurei em 5 minutos."
+    },
+    {
+      "id": "p3",
+      "title": "O modelo de IA não é o produto final — o wrapper (contexto, ambiente, fluxo) é",
+      "channel": "YouTube",
+      "status": "Publicado",
+      "scheduledDate": "",
+      "publishDate": "19 de mai",
+      "author": "Matheus",
+      "keyword": "IA",
+      "views": 13714,
+      "content": "As pessoas ainda acham que vender acesso a uma API crua é modelo de negócio. O verdadeiro moat está em envolver a API em uma excelente camada de experiência do usuário, contextualização de domínio e automação fluida."
+    },
+    {
+      "id": "p4",
+      "title": "Testei Claude Design vs Open Design. Ambos fazem a mesma coisa. Um custa R$ 0.",
+      "channel": "YouTube",
+      "status": "Publicado",
+      "scheduledDate": "",
+      "publishDate": "09 de mai",
+      "author": "Matheus",
+      "keyword": "design",
+      "views": 8930,
+      "content": "Enquanto as grandes empresas cobram fortunas para criar wireframes responsivos, ferramentas open-source baseadas em local-first e Tailwind alcançam o mesmo nível profissional sem adicionar custos fixos."
+    },
+    {
+      "id": "p5",
+      "title": "A maioria trata o Claude como um app.",
+      "channel": "Twitter",
+      "status": "Publicado",
+      "scheduledDate": "",
+      "publishDate": "02 de mai",
+      "author": "Matheus",
+      "keyword": "claude",
+      "views": 4500,
+      "content": "Claude não é só um chatbot bonito pra responder dúvidas básicas. Ele é um copiloto operacional capaz de planejar refatorações robustas, ler logs pesados e arquitetar microsserviços. Trate-o como um engenheiro pleno seniorizado."
+    },
+    {
+      "id": "p6",
+      "title": "Os segredos do Claude Code que ninguém te conta.",
+      "channel": "LinkedIn",
+      "status": "Publicado",
+      "scheduledDate": "",
+      "publishDate": "28 de abr",
+      "author": "Matheus",
+      "keyword": "IA",
+      "views": 3120,
+      "content": "Muitos testaram o ccode e reclamaram do consumo de tokens. O truque está no uso cirúrgico das Skills e definição adequada de permissões de arquivo no .aistudio. Vamos abrir a caixa-preta do terminal."
+    }
+  ],
+  "leads": [
+    {
+      "id": "lead_sim_1781107207737_7",
+      "name": "Amanda Silva",
+      "role": "VP de Growth",
+      "company": "TechCorp",
+      "email": "amanda.silva@techcorp.com",
+      "phone": "+55 11 95281-8998",
+      "status": "Novo",
+      "source": "Liberamos Um Curso Gratuito De Claude Code",
+      "date": "2026-06-10"
+    },
+    {
+      "id": "lead_sim_1781107207737_6",
+      "name": "Felipe Oliveira",
+      "role": "AI Builder",
+      "company": "MídiaDigital",
+      "email": "felipe.oliveira@mídiadigital.com",
+      "phone": "+55 11 96582-5841",
+      "status": "Novo",
+      "source": "As Skills Que Eu Instalaria Hoje No Claude",
+      "date": "2026-06-10"
+    },
+    {
+      "id": "lead_sim_1781107207737_5",
+      "name": "Bruno Pinto",
+      "role": "VP de Growth",
+      "company": "TechCorp",
+      "email": "bruno.pinto@techcorp.com",
+      "phone": "+55 11 93954-5409",
+      "status": "Novo",
+      "source": "Liberamos Um Curso Gratuito De Claude Code",
+      "date": "2026-06-10"
+    },
+    {
+      "id": "lead_sim_1781107207737_4",
+      "name": "Felipe Santos",
+      "role": "Software Eng",
+      "company": "MídiaDigital",
+      "email": "felipe.santos@mídiadigital.com",
+      "phone": "+55 11 99327-5242",
+      "status": "Novo",
+      "source": "Liberamos Um Curso Gratuito De Claude Code",
+      "date": "2026-06-10"
+    },
+    {
+      "id": "lead_sim_1781107207737_3",
+      "name": "Felipe Santos",
+      "role": "BizDev Master",
+      "company": "TechCorp",
+      "email": "felipe.santos@techcorp.com",
+      "phone": "+55 11 99551-8755",
+      "status": "Novo",
+      "source": "Liberamos Um Curso Gratuito De Claude Code",
+      "date": "2026-06-10"
+    },
+    {
+      "id": "lead_sim_1781107207737_2",
+      "name": "Gustavo Oliveira",
+      "role": "Social Seller",
+      "company": "IA Mestre",
+      "email": "gustavo.oliveira@ia mestre.com",
+      "phone": "+55 11 93395-1938",
+      "status": "Novo",
+      "source": "As Skills Que Eu Instalaria Hoje No Claude",
+      "date": "2026-06-10"
+    },
+    {
+      "id": "lead_sim_1781107207737_1",
+      "name": "Rodrigo Santos",
+      "role": "BizDev Master",
+      "company": "TechCorp",
+      "email": "rodrigo.santos@techcorp.com",
+      "phone": "+55 11 99470-9466",
+      "status": "Novo",
+      "source": "Liberamos Um Curso Gratuito De Claude Code",
+      "date": "2026-06-10"
+    },
+    {
+      "id": "lead_sim_1781107207737_0",
+      "name": "Renata Santos",
+      "role": "BizDev Master",
+      "company": "VentureBuilder",
+      "email": "renata.santos@venturebuilder.com",
+      "phone": "+55 11 96675-7762",
+      "status": "Novo",
+      "source": "Como Vender Projetos Antigos Para Leads Frios",
+      "date": "2026-06-10"
+    },
+    {
+      "id": "lead_sim_1781029637747_3",
+      "name": "Amanda Teixeira",
+      "role": "VP de Growth",
+      "company": "FluxoCriativo",
+      "email": "amanda.teixeira@fluxocriativo.com",
+      "phone": "+55 11 92086-3121",
+      "status": "Novo",
+      "source": "As Skills Que Eu Instalaria Hoje No Claude",
+      "date": "2026-06-09"
+    },
+    {
+      "id": "lead_sim_1781029637747_2",
+      "name": "Gustavo Pinto",
+      "role": "BizDev Master",
+      "company": "IA Mestre",
+      "email": "gustavo.pinto@ia mestre.com",
+      "phone": "+55 11 99072-2296",
+      "status": "Novo",
+      "source": "Liberamos Um Curso Gratuito De Claude Code",
+      "date": "2026-06-09"
+    },
+    {
+      "id": "lead_sim_1781029637747_1",
+      "name": "Patricia Teixeira",
+      "role": "Social Seller",
+      "company": "MídiaDigital",
+      "email": "patricia.teixeira@mídiadigital.com",
+      "phone": "+55 11 99092-3898",
+      "status": "Novo",
+      "source": "Liberamos Um Curso Gratuito De Claude Code",
+      "date": "2026-06-09"
+    },
+    {
+      "id": "lead_sim_1781029637747_0",
+      "name": "Camila Silva",
+      "role": "BizDev Master",
+      "company": "VentureBuilder",
+      "email": "camila.silva@venturebuilder.com",
+      "phone": "+55 11 96923-5418",
+      "status": "Novo",
+      "source": "Liberamos Um Curso Gratuito De Claude Code",
+      "date": "2026-06-09"
+    },
+    {
+      "id": "l1",
+      "name": "Gabriel Souza",
+      "role": "CEO",
+      "company": "AeroTech",
+      "email": "gabriel@aerotech.com",
+      "phone": "+55 11 98822-1133",
+      "status": "Novo",
+      "source": "Liberamos Um Curso Gratuito De Claude Code",
+      "date": "2026-06-09"
+    },
+    {
+      "id": "l2",
+      "name": "Beatriz Nogueira",
+      "role": "Product Manager",
+      "company": "FinTech Prime",
+      "email": "beatriz@pmprime.io",
+      "phone": "+55 11 97721-4455",
+      "status": "Novo",
+      "source": "As Skills Que Eu Instalaria Hoje No Claude",
+      "date": "2026-06-09"
+    },
+    {
+      "id": "l3",
+      "name": "Roberto Martins",
+      "role": "Head of AI",
+      "company": "DataBloom",
+      "email": "roberto@databloom.co",
+      "phone": "+55 21 99882-3322",
+      "status": "Contactado",
+      "source": "Liberamos Um Curso Gratuito De Claude Code",
+      "date": "2026-06-08"
+    },
+    {
+      "id": "l4",
+      "name": "Júlia Carvalho",
+      "role": "Designer",
+      "company": "PixelCraft",
+      "email": "julia@pixelcraft.studio",
+      "phone": "+55 11 96621-8899",
+      "status": "Convertido",
+      "source": "Testei O Open Design O Clone Do Claude Design",
+      "date": "2026-06-07"
+    },
+    {
+      "id": "l5",
+      "name": "Pedro Alencar",
+      "role": "Tech Lead",
+      "company": "BuildIt",
+      "email": "pedro@buildit.com.br",
+      "phone": "+55 31 98711-2244",
+      "status": "Novo",
+      "source": "As Skills Que Eu Instalaria Hoje No Claude",
+      "date": "2026-06-07"
+    },
+    {
+      "id": "l6",
+      "name": "Mariana Costa",
+      "role": "Founder",
+      "company": "ScaleAI",
+      "email": "mariana@scaleai.io",
+      "phone": "+55 11 99933-2211",
+      "status": "Novo",
+      "source": "Liberamos Um Curso Gratuito De Claude Code",
+      "date": "2026-06-06"
+    },
+    {
+      "id": "l7",
+      "name": "Lucas Andrade",
+      "role": "Developer",
+      "company": "DevStudio",
+      "email": "lucas@devstudio.com",
+      "phone": "+55 11 98855-6677",
+      "status": "Contactado",
+      "source": "Esses Sãos Os 3 Níveis De Uso De Claude",
+      "date": "2026-06-05"
+    },
+    {
+      "id": "l8",
+      "name": "Clara Mendes",
+      "role": "Content Creator",
+      "company": "Estúdio Vídeo",
+      "email": "clara@estudiovideo.br",
+      "phone": "+55 11 97711-0022",
+      "status": "Novo",
+      "source": "Liberamos Um Curso Gratuito De Claude Code",
+      "date": "2026-06-04"
+    }
+  ],
+  "radar": [
+    {
+      "id": "r1",
+      "platform": "X",
+      "title": "URGENTE Claude Code e ferramentas de agentes IA",
+      "description": "Explosão de ferramentas, plugins e frameworks para agentes IA com Claude. Usuários reportando saltos massivos de produtividade em workflows de desenvolvimento.",
+      "author": "@colbymchenry",
+      "date": "22/05 às 05:35",
+      "tags": [
+        "Claude",
+        "Agentes",
+        "IA"
+      ]
+    },
+    {
+      "id": "r2",
+      "platform": "X",
+      "title": "Agentes IA para automação e produtividade",
+      "description": "Agentes IA especializados automatizam tarefas complexas e ganham tração no setor corporativo. Discussões aquecidas sobre o fim de SaaS de prateleira.",
+      "author": "@askOkara",
+      "date": "21/05 às 17:00",
+      "tags": [
+        "Agentes",
+        "Automação"
+      ]
+    },
+    {
+      "id": "r3",
+      "platform": "X",
+      "title": "Claude lançamentos novos produtos recursos",
+      "description": "Anthropic expande Claude com novos produtos de design analytics e educação profissional. Promete redefinir interações multimodais complexas.",
+      "author": "@anthropic",
+      "date": "22/05 às 05:35",
+      "tags": [
+        "Anthropic",
+        "Claude"
+      ]
+    },
+    {
+      "id": "r4",
+      "platform": "YouTube",
+      "title": "What's new in Claude Code",
+      "description": "Anthropic lança novidades do Claude Code com guia prático passo a passo de como rodar automações em containers seguros.",
+      "author": "@claude",
+      "date": "20/05 às 08:42",
+      "stats": "13.714 views",
+      "tags": [
+        "Tutoriais",
+        "Code"
+      ]
+    },
+    {
+      "id": "r5",
+      "platform": "YouTube",
+      "title": "I Built a $1M/y SaaS with Claude Code, Here's How",
+      "description": "Nick Saraev construiu um SaaS faturando mais de US$ 1 milhão anual utilizando o Claude Code como principal parceiro de engenharia.",
+      "author": "@nicksaraev",
+      "date": "20/05 às 10:30",
+      "stats": "8.661 views",
+      "tags": [
+        "Cases",
+        "SaaS"
+      ]
+    },
+    {
+      "id": "r6",
+      "platform": "YouTube",
+      "title": "Introducing Appshots in Codex",
+      "description": "OpenAI lança Appshots no Codex para capturar contexto visual de interfaces dinamicamente e acelerar correções de layout.",
+      "author": "@OpenAI",
+      "date": "21/05 às 15:33",
+      "stats": "1.468 views",
+      "tags": [
+        "OpenAI",
+        "Interfaces"
+      ]
+    },
+    {
+      "id": "r7",
+      "platform": "GitHub",
+      "title": "TypeScript codegraph by colbynchenry",
+      "description": "Grafo de conhecimento pré-indexado em árvore para prover contexto otimizado para o Claude Code com menos consumo de tokens.",
+      "author": "colbynchenry",
+      "date": "Hoje",
+      "stats": "4.294 stars",
+      "tags": [
+        "Open Source",
+        "TypeScript"
+      ]
+    },
+    {
+      "id": "r8",
+      "platform": "GitHub",
+      "title": "andrej-karpathy-skills by multica-ai",
+      "description": "Claude Code Skills: arquivo único que adiciona dezenas de prompts e padrões que Andrej Karpathy usa para programar com inteligência artificial.",
+      "author": "multica-ai",
+      "date": "Hoje",
+      "stats": "2.679 stars",
+      "tags": [
+        "Claude Code",
+        "Skills"
+      ]
+    }
+  ],
+  "activityLogs": [
+    {
+      "id": "log_1781107207737",
+      "timestamp": "2026-06-10T16:00:07.737Z",
+      "message": "Automação executada! 13 replies enviadas, 8 novos leads capturados!",
+      "type": "success"
+    },
+    {
+      "id": "log_1781032033551",
+      "timestamp": "2026-06-09T19:07:13.551Z",
+      "message": "Tema visual alternado para: Modo Claro",
+      "type": "success"
+    },
+    {
+      "id": "log_1781032032122",
+      "timestamp": "2026-06-09T19:07:12.122Z",
+      "message": "Tema visual alternado para: Modo Escuro",
+      "type": "success"
+    },
+    {
+      "id": "log_1781029637747",
+      "timestamp": "2026-06-09T18:27:17.747Z",
+      "message": "Automação executada! 11 replies enviadas, 4 novos leads capturados!",
+      "type": "success"
+    },
+    {
+      "id": "log1",
+      "timestamp": "2026-06-09T17:10:00Z",
+      "message": "Radar atualizado com novas menções de Claude Code"
+    },
+    {
+      "id": "log2",
+      "timestamp": "2026-06-09T16:45:00Z",
+      "message": "Campanha 'Liberamos Um Curso Gratuito' capturou lead Gabriel Souza"
+    },
+    {
+      "id": "log3",
+      "timestamp": "2026-06-09T12:30:00Z",
+      "message": "Post agendado enviado para agendador de mídias"
+    }
+  ],
+  "activeTheme": "ch3",
+  "authSession": {
+    "isLoggedIn": true,
+    "username": "Arinelcino",
+    "email": "arinelcino@gmail.com"
+  },
+  "socialLogins": [
+    {
+      "channel": "LinkedIn",
+      "username": "arinelcino",
+      "connectedAt": "09/06/2026"
+    },
+    {
+      "channel": "Twitter",
+      "username": "arinelcino_dev",
+      "connectedAt": "08/06/2026"
+    }
+  ],
+  "darkMode": true,
+  "audits": [
+    {
+      "id": "audit_1",
+      "timestamp": "2026-06-09T17:15:00Z",
+      "action": "Configuração de Segurança",
+      "severity": "info",
+      "user": "Arinelcino",
+      "details": "PIN de acesso ativado com validação de biometria"
+    },
+    {
+      "id": "audit_2",
+      "timestamp": "2026-06-09T15:30:22Z",
+      "action": "Alteração de Campanha",
+      "severity": "warning",
+      "user": "Arinelcino",
+      "details": "Campanha 'Liberamos Um Curso Gratuito' alterada de Ativa para Pausada"
+    },
+    {
+      "id": "audit_3",
+      "timestamp": "2026-06-09T11:20:05Z",
+      "action": "Autenticação de Canal",
+      "severity": "info",
+      "user": "Arinelcino",
+      "details": "Canal LinkedIn conectado para usuário @arinelcino"
+    },
+    {
+      "id": "audit_4",
+      "timestamp": "2026-06-09T09:45:10Z",
+      "action": "Exclusão de Lead",
+      "severity": "critical",
+      "user": "Arinelcino",
+      "details": "Lead ID lead_1928472 (Guilherme Araujo) excluído permanentemente"
+    }
+  ]
+}
